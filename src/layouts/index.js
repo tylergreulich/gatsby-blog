@@ -5,16 +5,19 @@ import Helmet from 'react-helmet'
 import Header from '../components/header'
 import './index.css'
 
-const Layout = ({ children, data }) => (
+const Layout = ({ children, data, location }) => (
   <div>
     <Helmet
-      title={data.site.siteMetadata.title}
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' },
       ]}
     />
-    <Header siteTitle={data.site.siteMetadata.title} />
+    <Header
+      siteTitle={data.site.siteMetadata.title}
+      location={location}
+      data={data}
+    />
     <div
       style={{
         margin: '0 auto',
@@ -39,6 +42,11 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    background: imageSharp(id: { regex: "/dawn-dusk-optimized.png/" }) {
+      sizes(maxWidth: 1920) {
+        ...GatsbyImageSharpSizes
       }
     }
   }
