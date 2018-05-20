@@ -24,6 +24,27 @@ const HeaderContainer = styled.div`
   padding: 1.45rem 1.0875rem;
   position: relative;
   z-index: 2;
+  display: flex;
+  justify-content: space-between;
+`
+
+const MainNav = styled.nav`
+  ul {
+    list-style: none;
+    display: flex;
+    li {
+      margin-left: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      a {
+        text-decoration: none;
+        color: #eee;
+        &:hover {
+          border-bottom: 3px solid rebeccapurple;
+        }
+      }
+    }
+  }
 `
 
 class Header extends Component {
@@ -68,7 +89,7 @@ class Header extends Component {
               {/* <img src={var} alt=""/> logo goes here */}
             </Link>
           </h1>
-          <nav>
+          <MainNav>
             <ul>
               <li>
                 <Link to="/about">About</Link>
@@ -77,7 +98,7 @@ class Header extends Component {
                 <Link to="/home">Home</Link>
               </li>
             </ul>
-          </nav>
+          </MainNav>
         </HeaderContainer>
         <Img
           sizes={data.background.sizes}

@@ -29,3 +29,5 @@ module.exports = {
     'gatsby-plugin-sharp',
   ],
 }
+
+// pathprefix: '/tylergreulich',
