@@ -8,7 +8,6 @@ export default class PostPage extends Component {
     return (
       <div>
         <span>{date}</span>
-        <h1>{title}</h1>
         <div dangerouslySetInnerHTML={{ __html }} />
       </div>
     )
