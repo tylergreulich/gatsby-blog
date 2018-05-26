@@ -7,7 +7,10 @@ export default class About extends Component {
   render() {
     return (
       <div>
-        <PortfolioHeading>Here are some of my projects</PortfolioHeading>
+        <PortfolioHeading>
+          Here are some of my projects <span />
+        </PortfolioHeading>
+
         <section />
       </div>
     )
