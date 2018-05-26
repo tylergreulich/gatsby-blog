@@ -3,6 +3,10 @@ title: "Creating a Blog with GatsbyJS"
 date: "May 19 2018"
 ---
 
+So you want to create a blog or a static website, or just whip something up really quick while also being able to use React at the same time, without having to set up all the packages and dependencies that come with it?
+
+<!-- end -->
+
 <style>
   a {
     color: rgb(221, 153, 63);
@@ -33,13 +37,11 @@ a:hover:before {
 }
 </style>
 
-<!-- end -->
-
 # Creating a Blog with GatsbyJS
 
-So, you want to create a blog but aren't sure which static site generator to choose from, whether it be something like [Jekyll](https://jekyllrb.com/), [Hugo](https://gohugo.io/), or [GatsbyJS](https://www.gatsbyjs.org/)?
+So, you want to create a blog or a static web page, but aren't sure which static site generator to choose from, whether it be something like [Jekyll](https://jekyllrb.com/), [Hugo](https://gohugo.io/), or [GatsbyJS](https://www.gatsbyjs.org/)?
 
-Well I can't say that I know the two other than Gatsby, but if you know React and know or are interested in learning [GraphQL](https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b), then you'll feel right at home with GatsbyJS.
+Well I can't say that I know the two other than Gatsby, but if you know React and know or are interested in learning [GraphQL](https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b), then you'll feel right at home with GatsbyJS. After all, what would be better than building static web pages while also being able to use React to create them?
 
 _All of the source code can be found at this github repo that **I NEED TO MAKE**_
 

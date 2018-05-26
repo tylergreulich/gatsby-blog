@@ -5,8 +5,11 @@ import HeaderImage from '../images/dawn-dusk-optimized.png'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
+const StyledNavLinks = styled(Link)`
+  font-weight: 500;
+`
+
 const HeaderWrapper = styled.div`
-  /* background: rebeccapurple; */
   margin-bottom: 1.45rem;
   position: relative;
   overflow: hidden;
@@ -40,7 +43,7 @@ const MainNav = styled.nav`
         text-decoration: none;
         color: #eee;
         &:hover {
-          border-bottom: 3px solid rebeccapurple;
+          border-bottom: 3px solid rgb(221, 153, 63);
         }
       }
     }
@@ -78,7 +81,7 @@ class Header extends Component {
       >
         <HeaderContainer>
           <h1 style={{ margin: 0 }}>
-            <Link
+            <StyledNavLinks
               to="/"
               style={{
                 color: 'white',
@@ -87,15 +90,15 @@ class Header extends Component {
             >
               {siteTitle}
               {/* <img src={var} alt=""/> logo goes here */}
-            </Link>
+            </StyledNavLinks>
           </h1>
           <MainNav>
             <ul>
               <li>
-                <Link to="/about">About</Link>
+                <StyledNavLinks to="/about">About</StyledNavLinks>
               </li>
               <li>
-                <Link to="/home">Home</Link>
+                <StyledNavLinks to="/portfolio">Portfolio</StyledNavLinks>
               </li>
             </ul>
           </MainNav>
