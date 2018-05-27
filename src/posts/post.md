@@ -35,6 +35,14 @@ a:hover:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+
+pre {
+  background: #eee
+}
+
+code {
+  background: #eee
+}
 </style>
 
 # Creating a Blog with GatsbyJS
@@ -43,7 +51,7 @@ So, you want to create a blog or a static web page, but aren't sure which static
 
 Well I can't say that I know the two other than Gatsby, but if you know React and know or are interested in learning [GraphQL](https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b), then you'll feel right at home with GatsbyJS. After all, what would be better than building static web pages while also being able to use React to create them?
 
-_All of the source code can be found at this github repo that **I NEED TO MAKE**_
+_All of the source code and files can be found at this [github repo](https://github.com/tylergreulich/blog__gatsby-header)_
 
 ---
 
@@ -77,17 +85,22 @@ Install the necessary plugins and packages with:
 
     npm i gatsby-image gatsby-plugin-sharp gatsby-plugin-styled-components gatsby-source-filesystem gatsby-transformer-remark gatsby-transformer-sharp gatsby-image styled-components
 
+---
+
 ## Modifying the Header
 
 First, open `gatsby-config.js` and load the plugins:
 
-```module.exports = {
+```
+module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -95,16 +108,31 @@ First, open `gatsby-config.js` and load the plugins:
         path: `${__dirname}/src/images`,
       },
     },
-
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src/`,
+      },
+    },
+    {
+      resolve: `gatsby-remark-images`,
+      options: {
+        maxWidth: 590,
+      },
+    },
   ],
 }
 ```
 
-Now change what's in `src/layouts/index.js` so we can change the data that inside of the `/src/components/header` component
+Just to explain what some of this is doing - `gatsby-source-filesystem` is so we can point Gatsby in the right direction as to where we should be loading our files, and `gatsby-transformer-sharp` allows us to actually use images.
 
-```import React from 'react'
+You can read more about these plugins from [here](https://www.gatsbyjs.org/docs/plugins/).
+
+Now lets change what's in `src/layouts/index.js` so we can change the data that inside of the `/src/components/header` component
+
+```
+import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
@@ -150,12 +178,13 @@ export const query = graphql`
         title
       }
     }
-    background: imageSharp(id: { regex: "/name-of-image-here.png" }) {
+    background: imageSharp(id: { regex: "/name-of-image-here.png/" }) {
       sizes(maxWidth: 1920) {
         ...GatsbyImageSharpSizes
       }
     }
   }
+`
 `
 ```
 
@@ -163,10 +192,11 @@ Where it says `background: imageSharp(id: { regex: "name-of-image-here.png" })` 
 
 Next, we'll alter `/src/components/header.js` and start making use of Styled Components!
 
-```import React, { Component } from 'react'
+```
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Link from 'gatsby-link'
-import HeaderImage from '../images/name-of-your-image'
+import HeaderImage from '../images/name-of-image.png'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
@@ -174,6 +204,7 @@ const HeaderWrapper = styled.div`
   margin-bottom: 1.45rem;
   position: relative;
   overflow: hidden;
+  height: 60vh;
   h1 {
     img {
       height: 80px;
@@ -192,7 +223,6 @@ const HeaderContainer = styled.div`
 `
 
 class Header extends Component {
-
   render() {
     const { siteTitle, data, location } = this.props
     return (
@@ -218,7 +248,6 @@ class Header extends Component {
             left: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'unset',
           }}
           imgStyle={{
             objectFit: 'unset',
@@ -234,7 +263,15 @@ export default Header
 
 Additonally we've added Gatsby's `Link` component to our `Header` component and added a little bit of styling. Not the fanciest thing in the world, but not an eyesore either!
 
+You should now see something like this:
+
+![Gatsby Header](https://i.imgur.com/2EtC1E8.png)
+
+Except replaced with your own image of course!
+
 If you receieved any errors in your terminal during the process, close Gatsby and restart the development server with `gatsby develop`.
+
+---
 
 ### Well I think that's going to be it for this week - just to recap, we have:
 
@@ -243,4 +280,4 @@ If you receieved any errors in your terminal during the process, close Gatsby an
     * Ran the development server
     * Changed the header for the blog
 
-Stay tuned next week where I'll introduce GraphQL with GatsbyJS and how you can start to make blog posts with it!
+Stay tuned next week where I'll introduce GraphQL with GatsbyJS and how you can start to make blog posts!
