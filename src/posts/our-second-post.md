@@ -112,6 +112,8 @@ date: "5/27/2018"
 
 Now before we can make this readable for Gatsby we have to go into GraphQL and start working on a query (see [GraphQL Docs](https://graphql.org/learn/queries/)).
 
+_You can find the source code and files from this github repo *THAT I NEED TO CREATE*_
+
 ---
 
 ## Writing GraphiQL Queries
