@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import awsQuiz from '../images/sfw.png'
+import react from '../images/react.svg'
+import reactRouter from '../images/react-router.png'
 
 const PortfolioHeading = styled.h2``
 
 const PortfolioContainer = styled.section`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 20rem;
-  width: 20rem;
-
-  > figure {
-    width: 20%;
-  }
+  display: grid;
+  grid-template: 1fr 1fr / repeat(3, 1fr);
 `
 
 export default class About extends Component {
@@ -22,11 +18,18 @@ export default class About extends Component {
         <PortfolioHeading>Here are some of my projects</PortfolioHeading>
 
         <PortfolioContainer>
-          <figure>1</figure>
-          <figure>2</figure>
-          <figure>3</figure>
-          <figure>4</figure>
-          <figure>5</figure>
+          <figure style={{ textAlign: 'center' }}>
+            <span>AWS Quiz App</span>
+            <a
+              target="_blank"
+              href="https://ecstatic-gates-298e4a.netlify.com/"
+            >
+              <img src={awsQuiz} style={{ cursor: 'pointer' }} />
+            </a>
+            <figcaption>
+              Technologies used: <strong>React, React Router, Redux </strong>
+            </figcaption>
+          </figure>
         </PortfolioContainer>
       </div>
     )

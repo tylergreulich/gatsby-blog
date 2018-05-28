@@ -280,4 +280,4 @@ If you receieved any errors in your terminal during the process, close Gatsby an
     * Ran the development server
     * Changed the header for the blog
 
-Stay tuned next week where I'll introduce GraphQL with GatsbyJS and how you can start to make blog posts!
+Next week I'll introduce GraphQL with GatsbyJS and how you can start to make blog posts!

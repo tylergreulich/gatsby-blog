@@ -77,12 +77,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        excerpt_separator: `<!-- end -->`,
-      },
-    },
-    {
       resolve: `gatsby-remark-images`,
       options: {
         maxWidth: 590,
@@ -103,11 +97,19 @@ date: "5/27/2018"
 
 ## Hello
 
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum animi doloremque quod quia inventore architecto iste aut, aliquid tempore praesentium, repellat deleniti eaque ipsa reprehenderit reiciendis, consequuntur commodi tempora. Eligendi, deleniti totam esse, eaque cumque cupiditate culpa quam alias ipsa quibusdam dolorem repellendus atque maiores, dicta labore consequuntur itaque voluptates!
+
 * This
 * Is
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum animi doloremque quod quia inventore architecto iste aut, aliquid tempore praesentium, repellat deleniti eaque ipsa reprehenderit reiciendis, consequuntur commodi tempora. Eligendi, deleniti totam esse, eaque cumque cupiditate culpa quam alias ipsa quibusdam dolorem repellendus atque maiores, dicta labore consequuntur itaque voluptates!
+
 * A
 * New
 * Post
+
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum animi doloremque quod quia inventore architecto iste aut, aliquid tempore praesentium, repellat deleniti eaque ipsa reprehenderit reiciendis, consequuntur commodi tempora. Eligendi, deleniti totam esse, eaque cumque cupiditate culpa quam alias ipsa quibusdam dolorem repellendus atque maiores, dicta labore consequuntur itaque voluptates!
 ```
 
 Now before we can make this readable for Gatsby we have to go into GraphQL and start working on a query (see [GraphQL Docs](https://graphql.org/learn/queries/)).
@@ -138,6 +140,7 @@ query DataTitleQuery {
   allMarkdownRemark {
       edges {
         node {
+          id
           frontmatter {
             title
             date
@@ -210,6 +213,7 @@ export const query = graphql`
     allMarkdownRemark {
       edges {
         node {
+          id
           frontmatter {
             title
             date
@@ -227,3 +231,244 @@ Go ahead and restart the development server if you have to; if not, then let's m
 ---
 
 ## Working with Markdown Posts
+
+Let's start off by making a new folder `/src/posts` and move `post.md` inside of it. Next, create another folder and add a new component inside of `/src/components/Posts/PostListing.js`.
+
+You can go ahead and put the following code inside of the file
+
+```
+import React from 'react'
+import Link from 'gatsby-link'
+
+const postListing = ({ post }) => {
+  return (
+    <article>
+      <h3>{post.frontmatter.title}</h3>
+      <span>{post.frontmatter.date}</span>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: post.html,
+        }}
+      />
+    </article>
+  )
+}
+
+export default postListing
+```
+
+_Note: dangerouslySetInnerHTML in this case isn't, well, as dangerous as it may seem._ This is just to give Gatsby the power to render out the actual content and not the HTML elements that come out of the markdown files.
+
+Anyways, then change `/src/pages/index.js` to
+
+```
+import React from 'react'
+import Link from 'gatsby-link'
+import PostListing from '../components/Posts/PostListing'
+
+const IndexPage = ({ data }) => (
+  <div>
+    <h2>Posts</h2>
+    {data.allMarkdownRemark.edges.map(({ node }) => (
+      <PostListing post={node} key={node.id} />
+    ))}
+  </div>
+)
+
+export default IndexPage
+
+export const query = graphql`
+  query DataTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date
+          }
+          html
+        }
+      }
+    }
+  }
+`
+```
+
+I'd be lying if I said that was it, but there's a lot more code to go before Gatsby is configured properly to start setting up routes to different blog posts instead of just having all the content on a single page. Trust me, it's worth it!
+
+---
+
+## Setting up Context Queries
+
+This is the final part before all the files _should_ be set up the right away so you can begin to use your new powerful static site generator! There are of course a plethora of other ways you could do this but I'm just going to show one of many.
+
+Speaking of a lot more code, let's finished up the last few adjustments that need to be made, starting with `gatsby-node.js`
+
+```
+const path = require('path')
+const { createFilePath } = require('gatsby-source-filesystem')
+
+exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
+  const { createNodeField } = boundActionCreators
+  if (node.internal.type === 'MarkdownRemark') {
+    const slug = createFilePath({
+      node,
+      getNode,
+      basePath: 'posts',
+    })
+    createNodeField({
+      node,
+      name: 'slug',
+      value: `/posts${slug}`,
+    })
+  }
+}
+
+exports.createPages = ({ graphql, boundActionCreators }) => {
+  const { createPage } = boundActionCreators
+  return new Promise((resolve, reject) => {
+    graphql(`
+      {
+        allMarkdownRemark {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `).then(result => {
+      result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        createPage({
+          path: node.fields.slug,
+          component: path.resolve('./src/posts/PostPage.js'),
+          context: {
+            slug: node.fields.slug,
+          },
+        })
+      })
+      resolve()
+    })
+  })
+}
+```
+
+If you want an explanation of what's going on here, you can see the [Gatsby Node API](https://www.gatsbyjs.org/docs/node-apis/). I'm not going to bother with trying myself, because this isn't a guide on the inner mechanisms of how Gatsby works under the hood, sorry!
+
+Create a new component in the `/src/posts` directory, called `PostPage.js`
+
+```
+import React, { Component } from 'react'
+
+export default class PostPage extends Component {
+  render() {
+    const { data } = this.props
+    return <div>
+        <h1>{data.markdownRemark.frontmatter.title}</h1>
+        <span>{data.markdownRemark.frontmatter.date}</span>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: data.markdownRemark.html,
+        }}
+      />
+      </div>
+  }
+}
+
+export const query = graphql`
+  query BlogPostQuery($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      html
+      frontmatter {
+        title
+        date
+      }
+    }
+  }
+`
+```
+
+Next edit `/src/pages/index.js`
+
+```
+import React from 'react'
+import Link from 'gatsby-link'
+import PostListing from '../components/Posts/PostListing'
+
+const IndexPage = ({ data }) => (
+  <div>
+    <h2>Posts</h2>
+    {data.allMarkdownRemark.edges.map(({ node }) => (
+      <PostListing post={node} key={node.id} />
+    ))}
+  </div>
+)
+
+export default IndexPage
+
+export const query = graphql`
+  query DataTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date
+          }
+          fields {
+            slug
+          }
+          html
+        }
+      }
+    }
+  }
+`
+```
+
+Finally, make one last revision to `/src/components/Posts/PostListing.js` and we should be finished.
+
+```
+import React from 'react'
+import Link from 'gatsby-link'
+
+const postListing = ({ post }) => {
+  return (
+    <article>
+      <h3><Link to={post.fields.slug}>{post.frontmatter.title}</Link></h3>
+      <span>{post.frontmatter.date}</span>
+    </article>
+  )
+}
+
+export default postListing
+```
+
+And that should be it! You should now have a fully-functional blog with routing to redirect to each individual blog post.
+
+If you wanted to read more about Gatsby and how you can add more functionality to your blog, I'd recommend giving their documentation a read [here](https://www.gatsbyjs.org/docs/).
+
+---
+
+## As a recap for this post, we covered:
+
+* How to use gatsby-transformer-remark to convert markdown to html
+* Using GraphQL queries to pull data from each post
+* Working with Gatsby and setting it up so it can render the content
+* Having dynamic routing with gatsby-link to redirect to each blog post
+
+In the next post, I'll share some tips as to how you can get better at React by writing cleaner, more concise code, and share some things you may or may not have known about React.
