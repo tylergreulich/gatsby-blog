@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-
 import Header from '../components/header'
 import './index.css'
+import ReallySmoothScroll from 'really-smooth-scroll';
+
+ReallySmoothScroll.shim();
 
 const Layout = ({ children, data, location }) => (
   <div>
