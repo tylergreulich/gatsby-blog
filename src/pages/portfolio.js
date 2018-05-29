@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import awsQuiz from '../images/sfw.png'
 import movieDB from '../images/moviedb.png'
+import PortfolioItem from './portfolioItem'
 
 const PortfolioHeading = styled.h2``
 
@@ -11,6 +12,10 @@ const PortfolioContainer = styled.section`
   grid-gap: 2rem;
 `
 
+const PortfolioItem = styled.figure`
+  text-align: center;
+`
+
 export default class About extends Component {
   render() {
     return (
@@ -18,7 +23,7 @@ export default class About extends Component {
         <PortfolioHeading>Here are some of my projects</PortfolioHeading>
 
         <PortfolioContainer>
-          <figure style={{ textAlign: 'center' }}>
+          <PortfolioItem>
             <span>AWS Quiz App</span>
             <a
               target="_blank"
@@ -29,8 +34,8 @@ export default class About extends Component {
             <figcaption>
               Technologies used: <strong>React, React Router, Redux </strong>
             </figcaption>
-          </figure>
-          <figure style={{ textAlign: 'center' }}>
+          </PortfolioItem>
+          <PortfolioItem>
             <span>Lightweight Movie Database</span>
             <a
               target="_blank"
@@ -42,7 +47,7 @@ export default class About extends Component {
               Technologies used:{' '}
               <strong>React, React Router, Node, MongoDB, GraphQL</strong>
             </figcaption>
-          </figure>
+          </PortfolioItem>
         </PortfolioContainer>
       </div>
     )
