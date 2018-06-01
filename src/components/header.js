@@ -95,7 +95,7 @@ class Header extends Component {
           <MainNav>
             <ul>
               <li>
-                <StyledNavLinks to="/about">About</StyledNavLinks>
+                <StyledNavLinks to="/blog">Blog</StyledNavLinks>
               </li>
               <li>
                 <StyledNavLinks to="/portfolio">Portfolio</StyledNavLinks>

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import awsQuiz from '../images/sfw.png'
 import movieDB from '../images/moviedb.png'
-import PortfolioItem from './portfolioItem'
 
 const PortfolioHeading = styled.h2``
 
