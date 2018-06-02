@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'gatsby-link'
 import PostListing from '../components/Posts/PostListing'
 
-const IndexPage = ({ data }) => (
+const BlogPage = ({ data }) => (
   <div>
     <h2>Posts</h2>
     {data.allMarkdownRemark.edges.map(({ node }) => (
@@ -11,7 +11,7 @@ const IndexPage = ({ data }) => (
   </div>
 )
 
-export default IndexPage
+export default BlogPage
 
 export const query = graphql`
   query SiteQuery {

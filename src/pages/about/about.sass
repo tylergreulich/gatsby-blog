@@ -1,0 +1,55 @@
+$gradientColorOne: #3a8aa0 + 30
+$gradientColorTwo: #177a98
+
+
+.about__container
+  height: 35rem
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  &--cards
+    height: 17rem
+    width: 21%
+    margin-bottom: 0
+    display: flex
+    flex-direction: column
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .15)
+    transition: transform .2s ease-in-out
+
+    &:hover
+      transform: translateY(-.75rem) scale(1.05)
+
+  &--icons
+    height: 33%
+    display: flex
+    justify-content: center
+    align-items: center
+    color: #f0f0f0
+    padding: 3rem 0
+    background: linear-gradient(to bottom right, $gradientColorOne, $gradientColorTwo)
+
+    svg
+      height: 3rem
+
+  &--captions
+    height: 66%
+    font-size: 1rem
+    padding: 0 2.2rem
+    line-height: 1.6
+    color: #f0f0f0
+
+    h3
+      color: #777
+      font-weight: 600
+      font-size: 1.5rem
+      margin-top: 1rem
+      display: flex
+      text-transform: uppercase
+      justify-content: center
+
+.h2styles
+  color: #777
+  text-align: center
+  transform: translateY(5rem)
+  text-transform: uppercase

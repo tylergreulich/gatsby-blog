@@ -37,8 +37,7 @@ const MainNav = styled.nav`
     display: flex;
     li {
       margin-left: 10px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: Lato;
       a {
         text-decoration: none;
         color: #eee;
@@ -51,26 +50,26 @@ const MainNav = styled.nav`
 `
 
 class Header extends Component {
-  componentDidUpdate = (prevProps, prevState) => {
-    const { location } = this.props
-    if (location.pathname !== prevProps.location.pathname) {
-      if (this.props.location.pathname === '/') {
-        this.wrapper.animate([{ height: '20vh' }, { height: '70vh' }], {
-          duration: 400,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-          iterations: 1,
-        })
-      } else {
-        this.wrapper.animate([{ height: '70vh' }, { height: '20vh' }], {
-          duration: 400,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-          iterations: 1,
-        })
-      }
-    }
-  }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   const { location } = this.props
+  //   if (location.pathname !== prevProps.location.pathname) {
+  //     if (this.props.location.pathname === '/') {
+  //       this.wrapper.animate([{ height: '20vh' }, { height: '70vh' }], {
+  //         duration: 400,
+  //         fill: 'forwards',
+  //         easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
+  //         iterations: 1,
+  //       })
+  //     } else {
+  //       this.wrapper.animate([{ height: '70vh' }, { height: '20vh' }], {
+  //         duration: 400,
+  //         fill: 'forwards',
+  //         easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
+  //         iterations: 1,
+  //       })
+  //     }
+  //   }
+  // }
 
   render() {
     const { siteTitle, data, location } = this.props

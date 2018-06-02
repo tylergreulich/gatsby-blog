@@ -1,0 +1,202 @@
+.technology
+  height: 35rem
+  width: 100%;
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &__technologies
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: center
+    margin: 0 auto
+    position: relative
+    color : #777
+    transform: translateY(-1rem)
+    text-transform: uppercase
+    font-size: 1.5rem
+
+  
+  &__container
+    display: grid
+    grid-template: 10rem 10rem / 15rem 15rem 15rem
+    grid-gap: 2rem 2rem
+    justify-content: center
+    align-content: center
+    transition: all .4s ease-in
+    position: absolute
+    
+    &--icons
+      display: flex
+      justify-content: center
+      flex-direction: column
+      align-items: center
+      background: linear-gradient(to bottom right, #ff7e5f - 5, #feb47b - 15)
+      font-size: 1.3rem
+      color: #fff
+      box-shadow: 0 1rem 4rem rgba(0, 0, 0, .15)
+      transition: all .3s ease-in-out 
+
+      &:nth-child(1)
+
+        p
+          opacity: 0
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+
+          svg
+            fill: #177a98
+            transition: all .4s ease-in .1s
+            transform: rotate(-180deg) 
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .1s
+            color: #177a98
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      &:nth-child(2)
+
+        p
+          opacity: 0
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+
+          svg
+            fill: #764abc
+            transition: all .3s ease-in .2s
+            transform: rotate(-180deg) scale(.8)
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .3s
+            color: #764abc
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      &:nth-child(3)
+
+        p
+          opacity: 0
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+
+          svg
+            fill: #e10098
+            transition: all .3s ease-in .2s
+            transform: rotate(-180deg) scale(.8)
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .3s
+            color: #e10098
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      &:nth-child(4)
+
+        p
+          opacity: 0
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+
+          svg
+            fill: #539e43
+            transition: all .3s ease-in .2s
+            transform: rotate(-180deg) scale(.8)
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .3s
+            color: #539e43
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      &:nth-child(5)
+
+        p
+          opacity: 0
+
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+          cursor: pointer
+
+          svg
+            transition: all .3s ease-in .2s
+            transform: rotate(-180deg) scale(.9)
+
+            #path14
+              fill: #4dba87
+              transition: all .3s ease-in .2s
+        
+            #path18
+              fill: #435466
+              transition: all .3s ease-in .2s
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .3s
+            color: #435466
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      &:nth-child(6)
+
+        p
+          opacity: 0
+
+        &:hover
+          transform: rotate(180deg) scale(1.05)
+          transition: all .5s
+          background: #fff - 10
+          box-shadow: 0 -1rem 4rem rgba(0, 0, 0, .15)
+
+          svg
+            fill: #7bb96c
+            transition: all .3s ease-in .2s
+            transform: rotate(-180deg) scale(.8)
+
+          p
+            transform: rotate(180deg)
+            transition: all .3s ease-in-out .3s
+            color: #7bb96c
+            opacity: 1
+            font-size: 1.3rem
+            font-weight: 400
+            text-transform: uppercase
+
+      > svg
+        transform: scale(0.7)
+
