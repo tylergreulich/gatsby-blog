@@ -14,7 +14,7 @@ const BlogPage = ({ data }) => (
 export default BlogPage
 
 export const query = graphql`
-  query SiteQuery {
+  query SiteMeta {
     site {
       siteMetadata {
         title
@@ -26,7 +26,7 @@ export const query = graphql`
           id
           frontmatter {
             title
-            date
+            date(formatString: "MMMM DD YYYY")
           }
           fields {
             slug

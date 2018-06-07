@@ -1,4 +1,14 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
+
+const StyledTitle = styled.span`
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+`
+
+const StyledDate = StyledTitle.extend`
+  font-size: 1rem;
+`
 
 export default class PostPage extends Component {
   render() {
@@ -7,7 +17,16 @@ export default class PostPage extends Component {
     const { html: __html } = data.markdownRemark
     return (
       <div>
-        <span>{date}</span>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <StyledTitle>
+            <strong>{title}</strong>
+          </StyledTitle>
+          <StyledDate>
+            <strong>{date}</strong>
+          </StyledDate>
+        </div>
+
+        <hr />
         <div dangerouslySetInnerHTML={{ __html }} />
       </div>
     )
@@ -20,7 +39,7 @@ export const query = graphql`
       html
       frontmatter {
         title
-        date
+        date(formatString: "MMMM DD YYYY")
       }
     }
   }

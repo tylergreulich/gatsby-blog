@@ -1,13 +1,13 @@
 ---
 title: "Creating a Blog with GatsbyJS - Part Two"
-date: "May 28 2018"
+date: "2018-05-28"
 ---
 
 Last week we started working on making a blog and even made some changes to it, such as swapping the default styles with the header with a new image. This week, I'll be showing you how you can start to create Blog posts with Gatsby using GraphQL!
 
-If you missed the previous post, you can catch up [here](https://github.tylergreulich.io/posts)
-
 <!-- end -->
+
+If you missed the previous post, you can catch up [here](https://github.tylergreulich.io/posts)
 
 <style>
   a {

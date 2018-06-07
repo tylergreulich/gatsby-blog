@@ -1,6 +1,6 @@
 ---
 title: "Creating a Blog with GatsbyJS"
-date: "May 19 2018"
+date: "2018-05-19"
 ---
 
 So you want to create a blog or a static website, or just whip something up really quick while also being able to use React at the same time, without having to set up all the packages and dependencies that come with it?

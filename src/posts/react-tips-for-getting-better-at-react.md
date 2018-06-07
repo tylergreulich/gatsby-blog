@@ -1,94 +1,164 @@
-<!-- ---
-title: "React Tips for Getting Better At React"
-date: "June 04 2018"
 ---
 
-Part of the reason why I wanted to share these are because time and time again I see people making mistakes in their React code (that's not to say that mine is perfect, because believe me, it's *far*  from it) and I wanted to put my two cents out there and share what I've learned from my own experience with writing code in React, and how you could possibly improve your own.
+title: "React Tips for Getting Better At React"
+date: "2018-06-07"
+---
 
-Now the other part of that reason is because I'm starting to get tired of seeing people using constructors when initializing their state (*I'm kidding!* Okay, kinda), unless of course they either come from a background in Object Oriented Progamming, or they've just been writing code in React for so long that it's just become second nature.
+Part of the reason why I wanted to share these are because time and time again I see people making mistakes in their React code (that's not to say that mine is perfect, because believe me, it's _far_ from it) and I wanted to put my two cents out there and share what I've learned from my own experience with writing code in React, and how you could possibly improve your own.
+
+<!-- end -->
+
+<style>
+  a {
+    color: rgb(221, 153, 63);
+    text-decoration: none;
+    position: relative;
+  }
+
+  a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(221, 153,53);
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  margin: 0 0 -2px 0;
+}
+
+a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+h1 > a {
+  background-color: transparent !important;
+  transition: none !important;
+}
+
+h1 > a:before {
+  background-color: transparent !important;
+}
+
+pre {
+  background: #eee
+}
+
+code {
+  background: #eee
+}
+</style>
+
+Now the other part of that reason is because I'm starting to get tired of seeing people using constructors when initializing their state (_I'm kidding!_ Okay, kinda), unless of course they either come from a background in Object Oriented Progamming, or they've just been writing code in React for so long that it's just become second nature.
 
 Either way, here are some of the things I'd like to share that have helped me in producing more modular and readable code since I started to learn React.
 
-//*  #1 Know when to use a Stateful Class Component and a Stateless Functional Component
+---
 
-// Stateless === A component without state that's well, just a function that returns JSX.
-// Stateless === No lifecycle hooks.
-// Stateless === No refs
-// If your components aren't using state, refs, then 9 times out of 10 you're going to want to use a stateless funtional component
+## #1 Know when to use a Stateful Class Component and a Stateless Functional Component
 
+This one shouldn't be too surprising, but if you're not planning on making use of component level state or the lifecycle hooks that come with a Stateful component **(ComponentDidMount, ComponentDidUpdate, etc)**, then more often than not you should be creating a Stateless component. Aside from the two things, the main purpose of a Stateless component (from what I've gathered at least) is just to return JSX.
+
+### Stateful Component
+
+```
 class Hello extends Component {
   render() {
     return <h1>Hello {this.props.name}</h1>;
   }
 }
+```
 
-// This should be a funtional component
+### Converting it into a Stateless Component
 
+```
 const hello = props => <h1>Hello {props.name}</h1>;
+```
 
-// Note: You don't have to send props into the function argument if you don't expect to receive any props
+See how clean that is compared to using it like a Stateful component? Not only that, but it's much easier to test if you're into that sorta thing.
 
-// Benefits: Less and much more clean code, easier to test.
+If you only _need_ to return JSX from a component then you should only be using Stateless components.
 
-//* #2 => Keep Your Components Small
+_Note: You don't have to send props into the function argument if you aren't expecting any props._
 
-// Easier to read, maintain, test, and reuse
+---
 
+## #2 Keep Your Components Small
+
+Now this one kind of goes hand in hand with the previous one, but keeping your components lean will make your experience with buiding React apps much more pleasurable.
+
+Not only that but if you're working with someone surely you don't want them to have to go through a component that's 300+ lines of code, right? Sometimes it's unavoidable, especially if you're working on a large project, but you should at least keep your components as concise as you possibly can.
+
+```
 class Comment extends Component {
   render() {
     const { user, text, date } = this.props;
     return (
       <div className="Comment">
-        <UserInfo user={user} />
+
+        /* Instead of having these code blocks sitting here
+           you an just split the code up into separate components */
+
         {/* <div className="UserInfo">
+          <img
+            src={user.avatarUrl}
+            alt={user.name}
+            className="Avatar"
+          />  
           <img
             src={user.avatarUrl}
             alt={user.name}
             className="Avatar"
           />
           <div className="UserInfo-name">{user.name}</div>
-        </div> */}
-        <div className="Comment-text">{text}</div>
-        <div className="Comment-date">{formatDate(date)}</div>
+        </div> /*}
       </div>
     );
   }
 }
+```
 
-// =>
+#### Making things more modular
 
+```
 const userInfo = props => {
   return (
     <div className="UserInfo">
       <Avatar user={props.user} />
-      {/* <img
-      src={props.user.avatarUrl}
-      alt={props.user.name}
-      className="Avatar"
-    /> */}
       <div className="UserInfo-name">{props.user.name}</div>
     </div>
   );
 };
+```
 
-//? More Modularity =>
+```
+const avatar = props => (
+  <img
+    src={props.user.avatarUrl}
+    alt={props.user.name}
+    className="Avatar"
+  />
+);
+```
 
-const avatar = props => <img
-  src={props.user.avatarUrl}
-  alt={props.user.name}
-  className="Avatar"
-/>
+---
 
-//* Handling *this*
+## #3 Handling _this_
 
-// If you *are* using a Stateful component (you don't get *this* in stateless components), you need to bind *this*
-// somehow. There are several ways of doing so, but I'm going to share what is in my opinion, the best and cleanest
-// way to do it.
+If you _are_ using a Stateful component (you don't get _**this**_ in stateless components), you need to bind _**this**_
+somehow. There are several ways of doing so, but I'm going to share what you _shouldn't_ do, and what is in my opinion, the best and cleanest way to do it.
 
-//! Binding *this* in the render method
-// ! NO CONSTRUCTOR !
+**What you shouldn't do**
 
+#### 1. Binding _this_ in the render method
 
+```
   class HelloWorld extends Component {
     constructor(props) {
       super(props);
@@ -106,11 +176,13 @@ const avatar = props => <img
       )
     }
   }
+```
 
-  // This causes a slight performance issue because a new function is going to be called every time a new component re-renders.
+_Note: This causes a slight performance issue because a new function is going to be called every time a new component re-renders._
 
-  //! Bind in the constructor
+#### 2. Binding _this_ in the constructor
 
+```
   class HelloWorld extends Component {
     constructor(props) {
       super(props);
@@ -129,11 +201,13 @@ const avatar = props => <img
       )
     }
   }
+```
 
-  // Solves the performance issue, but there is a *much* better way of doing things for cleaner code.
+While this approach solves the performance issue, there is a much better and cleaner way of doing things.
 
-  //* Arrow functions in Class Property
+Here's what you _**should**_ do
 
+```
 class HelloWorld extends Component {
   state = {
     message: 'Hello'
@@ -148,48 +222,31 @@ class HelloWorld extends Component {
     )
   }
 }
+```
 
-  //* No Constructor
-  //* Don't have to bind *this*
-  //* Not repeating yourself
-  //* Avoids performance issues
+What are the advantages to this solution? Well for one, there's no need to include the Constructor function in the mix of things which means typing less code, but you don't have to bind the _**this**_ keyword while also avoiding performance issues at the same time that came with the original solution.
 
+### #4 Use a function in setState, not an object
 
-  //* #3 Use a function in setState, and not an object
+Now React doesn't gaurantee that state changes are applied immediately, so using this syntax:
 
-  // React !== gaurantee state changes are applied immediately
+    this.setState({ correctData: !this.state.correctData });
 
-  // So using *this.state* right after *this.setState* is a potential pitfall because *this.state* might not be what you think it is
+is a potential pitfall because _**this.state**_ might not be what you think it is.
 
-  //! this.setState({ correctData: !this.state.correctData });
+The correct way to do this in this particular scenario would be to use the following syntax:
 
-  //* this.setState((prevState, props) => { correctData: !prevState.correctData })
+    this.setState(prevState => { correctData: !prevState.correctData });
 
-  // Receives prevState as it's first arg, and the props when the update is applied as it's second arg.
+_Note: You can pass props into the function as an argument with prevState if you need to._
 
-  //* #5 If you're not using Flow or TypeScript, utiilize PropTypes.
+---
 
-  import PropTypes from 'prop-types';
+### #5 Tooling + Snippets
 
-  class Welcome extends Component {
-    render() {
-      return (
-        <h1>Hello {this.props.name}</h1>
-      )
-    }
-  }
+I'm not going to mention much aside from the fact that the [React](https://github.com/facebook/react-devtools) and [Redux](https://github.com/zalmoxisus/redux-devtools-extension) DevTools have made developing with
+React a much more pleasurable experience overall, especially the Redux extension.
 
-  Hello.propTypes = {
-    name: PropTypes.string.isRequired
-  }
+As far as Snippets are concerned (this is for [VS Code](https://code.visualstudio.com/), I'm not aware if this Snippet library exists for other text editors, but if not then I'm sure there are good alternatives), but I recommend using [ES7 React / Redux / GraphQL / React-Native Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets).
 
-  // Can help prevent bugs by ensuring that you're using the right data types for your props
-  // You're going to want to install it with ``` npm i prop-types ```
-
-  //* #5 Tooling + Snippets
-
-  // I'm not going to mention much aside from the fact that the React and Redux DevTools have made developing with
-  // React a much more pleasurable experience overall. I think i might've considered pulling my hair out at some
-  // point if they didn't exist.
-
-  // As far as Snippets are concered (this is for VS Code, I'm not aware if this Snippet library exists for other text editors, but if not then I'm sure there are good alternatives), I recommend using ES7 React / Redux / GraphQL / React-Native Snippets. You can simply type 'rcc' and you'll get a Stateful Component right out of the box, or 'rfc' if you want a Stateless Component. Saves a significant amount of time as I'm sure you could imagine. -->
+You can simply type 'rcc' followed by hitting tab, and you'll get a Stateful Component right out of the box, or 'rfc' if you want a Stateless Component. This saves a significant amount of time as I'm sure you could imagine.
