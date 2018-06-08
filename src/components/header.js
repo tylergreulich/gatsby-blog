@@ -9,10 +9,18 @@ const StyledNavLinks = styled(Link)`
   font-weight: 500;
 `
 
+const StyledHeader = StyledNavLinks.extend`
+  font-size: 2.4rem;
+  padding-bottom: 1rem;
+`
+
 const HeaderWrapper = styled.div`
   margin-bottom: 1.45rem;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: ${({ isHome }) => (isHome ? '70vh' : '20vh')};
   h1 {
     img {
@@ -22,13 +30,14 @@ const HeaderWrapper = styled.div`
 `
 
 const HeaderContainer = styled.div`
-  margin: 0 auto;
   max-width: 960;
   padding: 1.45rem 1.0875rem;
   position: relative;
   z-index: 2;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 20rem;
 `
 
 const MainNav = styled.nav`
@@ -36,7 +45,6 @@ const MainNav = styled.nav`
     list-style: none;
     display: flex;
     li {
-      margin-left: 10px;
       font-family: Lato;
       a {
         text-decoration: none;
@@ -49,28 +57,14 @@ const MainNav = styled.nav`
   }
 `
 
-class Header extends Component {
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   const { location } = this.props
-  //   if (location.pathname !== prevProps.location.pathname) {
-  //     if (this.props.location.pathname === '/') {
-  //       this.wrapper.animate([{ height: '20vh' }, { height: '70vh' }], {
-  //         duration: 400,
-  //         fill: 'forwards',
-  //         easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-  //         iterations: 1,
-  //       })
-  //     } else {
-  //       this.wrapper.animate([{ height: '70vh' }, { height: '20vh' }], {
-  //         duration: 400,
-  //         fill: 'forwards',
-  //         easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-  //         iterations: 1,
-  //       })
-  //     }
-  //   }
-  // }
+const LinkContainer = styled.ul`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 0;
+`
 
+class Header extends Component {
   render() {
     const { siteTitle, data, location } = this.props
     return (
@@ -80,7 +74,7 @@ class Header extends Component {
       >
         <HeaderContainer>
           <h1 style={{ margin: 0 }}>
-            <StyledNavLinks
+            <StyledHeader
               to="/"
               style={{
                 color: 'white',
@@ -89,17 +83,17 @@ class Header extends Component {
             >
               {siteTitle}
               {/* <img src={var} alt=""/> logo goes here */}
-            </StyledNavLinks>
+            </StyledHeader>
           </h1>
           <MainNav>
-            <ul>
+            <LinkContainer>
               <li>
                 <StyledNavLinks to="/blog">Blog</StyledNavLinks>
               </li>
               <li>
                 <StyledNavLinks to="/portfolio">Portfolio</StyledNavLinks>
               </li>
-            </ul>
+            </LinkContainer>
           </MainNav>
         </HeaderContainer>
         <Img

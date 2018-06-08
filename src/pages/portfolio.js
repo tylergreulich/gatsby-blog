@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import awsQuiz from '../images/sfw.png'
 import movieDB from '../images/moviedb.png'
+import GitHub from '../images/GitHub-Mark.svg'
 
 const PortfolioHeading = styled.h2``
 
@@ -30,6 +31,17 @@ export default class About extends Component {
             >
               <img src={awsQuiz} style={{ cursor: 'pointer' }} />
             </a>
+            <a
+              href="https://github.com/tylergreulich/aws_quiz_app"
+              target="_blank"
+            >
+              <img
+                src={GitHub}
+                alt=""
+                style={{ height: '4rem', margin: '1rem 0' }}
+              />
+            </a>
+
             <figcaption>
               Technologies used: <strong>React, React Router, Redux </strong>
             </figcaption>
@@ -38,10 +50,18 @@ export default class About extends Component {
             <span>Lightweight Movie Database</span>
             <a
               target="_blank"
-              href="http://admiring-golick-7882c0.netlify.com/#/"
+              href="https://admiring-golick-7882c0.netlify.com/#/"
             >
               <img src={movieDB} style={{ cursor: 'pointer' }} />
             </a>
+            <a href="https://github.com/tylergreulich/moviql" target="_blank">
+              <img
+                src={GitHub}
+                alt=""
+                style={{ height: '4rem', margin: '1rem 0' }}
+              />
+            </a>
+
             <figcaption>
               Technologies used:{' '}
               <strong>React, React Router, Node, MongoDB, GraphQL</strong>
