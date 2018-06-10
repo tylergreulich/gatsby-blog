@@ -1,3 +1,6 @@
+$gradientColorOne: #3a8aa0 - 30
+$gradientColorTwo: #177a98 - 10
+  
 .writing
   height: 35rem
   width: 100%;
@@ -19,5 +22,13 @@
 
   &__container
     flex: .7
-    display: flex
+    display: grid
+    grid-template: 1fr 1fr / 1fr 1fr
+    grid-gap: 1rem
     align-items: center
+    justify-content: center
+    justify-items: center
+
+    h2
+      color: grey
+

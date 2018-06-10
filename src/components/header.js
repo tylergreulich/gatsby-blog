@@ -37,7 +37,7 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 20rem;
+  height: 13rem;
 `
 
 const MainNav = styled.nav`

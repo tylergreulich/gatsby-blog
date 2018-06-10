@@ -1,12 +1,10 @@
 ---
 
-title: "React Tips for Getting Better At React"
+title: "Tips for Getting Better At React"
 date: "2018-06-07"
 ---
 
-Part of the reason why I wanted to share these are because time and time again I see people making mistakes in their React code (that's not to say that mine is perfect, because believe me, it's _far_ from it) and I wanted to put my two cents out there and share what I've learned from my own experience with writing code in React, and how you could possibly improve your own.
-
-<!-- end -->
+Part of the reason why I wanted to share these are because time and time again I see people making mistakes in their React code... <!-- end --> (that's not to say that mine is perfect, because believe me, it's _far_ from it) and I wanted to put my two cents out there and share what I've learned from my own experience with writing code in React, and how you could possibly improve your own.
 
 <style>
   a {
@@ -213,9 +211,8 @@ class HelloWorld extends Component {
     message: 'Hello'
   }
 
-  logMessageHandler = () => {
-    console.log(this.state.message)
-  }
+  logMessageHandler = () => console.log(this.state.message);
+
   render() {
     return (
       <input type="text" onClick={this.logMessageHandler} />
