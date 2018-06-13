@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 const StyledRedirect = styled(Link)`
   text-decoration: none;
+  height: 100%;
 `
 
 const writing = ({ data }) => (
@@ -13,26 +14,26 @@ const writing = ({ data }) => (
     <section className="writing">
       <h2 className="writing__headline">recently written</h2>
       <section className="writing__container">
-        <figure>
-          <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
-            <h2>CHANGE THIS LINK</h2>
-          </StyledRedirect>
-        </figure>
-        <figure>
-          <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
-            <h2>Tips for Getting Better At React</h2>
-          </StyledRedirect>
-        </figure>
-        <figure>
-          <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
+        <StyledRedirect to="/posts/">
+          <figure>
+            <h2>Connecting a RESTful API with React and Redux</h2>
+          </figure>
+        </StyledRedirect>
+        <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
+          <figure>
+            <h2>5 Tips for Getting Better At React</h2>
+          </figure>
+        </StyledRedirect>
+        <StyledRedirect to="/posts/creating-blog-gatsbyjs-part-two/">
+          <figure>
             <h2>Creating a Blog with GatsbyJS - Part Two</h2>
-          </StyledRedirect>
-        </figure>
-        <figure>
-          <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
+          </figure>
+        </StyledRedirect>
+        <StyledRedirect to="/posts/creating-blog-gatsbyjs-part-one/">
+          <figure>
             <h2>Creating a Blog with GatsbyJS - Part One</h2>
-          </StyledRedirect>
-        </figure>
+          </figure>
+        </StyledRedirect>
       </section>
     </section>
   </div>

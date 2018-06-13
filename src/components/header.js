@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Link from 'gatsby-link'
-import HeaderImage from '../images/dawn-dusk-optimized.png'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
