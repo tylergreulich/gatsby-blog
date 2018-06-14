@@ -14,7 +14,7 @@ const writing = ({ data }) => (
     <section className="writing">
       <h2 className="writing__headline">recently written</h2>
       <section className="writing__container">
-        <StyledRedirect to="/posts/">
+        <StyledRedirect to="/posts/restful-api-react-redux-backend/">
           <figure>
             <h2>Connecting a RESTful API with React and Redux - The Backend</h2>
           </figure>

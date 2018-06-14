@@ -168,7 +168,7 @@ module.exports = router;
 });
 ```
 
-On `line 2`, we're initializing the Express router and assigning it to a variable called `app` in this case, and then exporting it at the bottom of the file.
+On `line 2` , we're initializing the Express router and assigning it to a variable called `app` in this case, and then exporting it at the bottom of the file.
 
 If you're wondering where `const Movie = require('../models/movie.js');` is coming from, well, we'll be getting to that shortly. Just know that it has to do with mongoose and how you set up the data model and schema for whatever kind of data you want to store in MongoDB.
 
