@@ -16,7 +16,7 @@ const writing = ({ data }) => (
       <section className="writing__container">
         <StyledRedirect to="/posts/">
           <figure>
-            <h2>Connecting a RESTful API with React and Redux</h2>
+            <h2>Connecting a RESTful API with React and Redux - The Backend</h2>
           </figure>
         </StyledRedirect>
         <StyledRedirect to="/posts/react-tips-for-getting-better-at-react/">
