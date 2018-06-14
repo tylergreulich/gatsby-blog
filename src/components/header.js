@@ -81,7 +81,6 @@ class Header extends Component {
               }}
             >
               {siteTitle}
-              {/* <img src={var} alt=""/> logo goes here */}
             </StyledHeader>
           </h1>
           <MainNav>
