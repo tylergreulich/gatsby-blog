@@ -8,11 +8,11 @@ So you're familiar with frontend technology and want to learn a bit more about t
 
 <!-- end -->
 
-Well this post will show you just how to get started with that by setting things up on the backend before switching to React and doing everything else like AJAX with Redux and whatnot. If you're more interested in how to do AJAX calls with Redux, you can skip to [here](http://)
+Well this post will show you just how to get started with that by setting things up on the backend before switching to React and doing everything else like AJAX with Redux and whatnot. If you're more interested in how to do AJAX calls with Redux, you can skip to [here](/)
 
 (_This assumes you have **some** knowledge of Node.js, MongoDB, and definitely assumes you know at least the fundamentals of how React and Redux work for when we move on to the frontend._)
 
-(_Note: You can view the source code [HERE](http://)_)
+(\_Note: You can view the source code [HERE](https://github.com/tylergreulich/restful-api-react--blog)
 
 <style>
   a {
@@ -97,11 +97,11 @@ app.listen(port, () => console.log(`Listening on Port ${port}`));
 
 You might be looking at `const express = require('express)`, and `const mongoose = require('mongoose')` and be wondering, what the heck is that?
 
-Well, Express is just a framework for Nodejs to make setting up RESTful APIs much easier and a much more pleasurable experience overall. Mongoose is an ODM (Object Data Modeling) library for MongoDB and Nodejs. It's what's being used in this particular scenario to give us the option to store JSON documents. You can read more about it [here]('http://')
+Well, Express is just a framework for Nodejs to make setting up RESTful APIs much easier and a much more pleasurable experience overall. Mongoose is an ODM (Object Data Modeling) library for MongoDB and Nodejs. It's what's being used in this particular scenario to give us the option to store JSON documents. You can read more about it [here](http://mongoosejs.com/)
 
 As far as `body-parser` is concerned, that's just the boilerplate that will give us access to the `req.body` for when we set up our routes.
 
-If you're confused as to why we're using this syntax to import our modules, it's because Node only supports the CommonJS syntax out of box. You can get around this by setting up [Babel](http://), but that's for another time.
+If you're confused as to why we're using this syntax to import our modules, it's because Node only supports the CommonJS syntax out of box. You can get around this by setting up [Babel](https://babeljs.io/), but that's for another time.
 
 It is however the same thing as doing `import express from 'express'` if you're more comfortable with React.
 
@@ -289,4 +289,4 @@ If you want to read more about Mongoose schemas and models, go [here](http://mon
 
 ---
 
-## API Calls with Postman
+Well, that's about it for this week. Next time I'll be explaining how to set up React with Redux and then how to set it up to do API calls with our nearly created RESTful API.

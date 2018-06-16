@@ -26,6 +26,10 @@
     align-content: center
     transition: all .4s ease-in
     position: absolute
+
+    @media(max-width: 930px)
+        grid-template: 8rem 8rem 8rem / 350px 350px
+        width: 100%
     
     &--icons
       display: flex
@@ -42,6 +46,7 @@
 
         p
           opacity: 0
+        
 
         &:hover
           transform: rotate(180deg) scale(1.05)

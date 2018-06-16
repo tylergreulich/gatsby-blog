@@ -29,7 +29,6 @@ const HeaderWrapper = styled.div`
 `
 
 const HeaderContainer = styled.div`
-  max-width: 960;
   padding: 1.45rem 1.0875rem;
   position: relative;
   z-index: 2;

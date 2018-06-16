@@ -4,16 +4,26 @@ import awsQuiz from '../images/sfw.png'
 import movieDB from '../images/moviedb.png'
 import GitHub from '../images/GitHub-Mark.svg'
 
-const PortfolioHeading = styled.h2``
+const PortfolioHeading = styled.h2`
+  color: #777;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+`
 
 const PortfolioContainer = styled.section`
   display: grid;
-  grid-template: 1fr 1fr / repeat(3, 1fr);
+  grid-template: 1fr / repeat(3, 1fr);
   grid-gap: 2rem;
+  margin-top: 3rem;
 `
 
 const PortfolioItem = styled.figure`
   text-align: center;
+`
+
+const PortfolioTech = styled.figcaption`
+  padding: 0 3rem;
 `
 
 export default class About extends Component {
@@ -42,9 +52,9 @@ export default class About extends Component {
               />
             </a>
 
-            <figcaption>
+            <PortfolioTech>
               Technologies used: <strong>React, React Router, Redux </strong>
-            </figcaption>
+            </PortfolioTech>
           </PortfolioItem>
           <PortfolioItem>
             <span>Lightweight Movie Database</span>
@@ -62,10 +72,10 @@ export default class About extends Component {
               />
             </a>
 
-            <figcaption>
+            <PortfolioTech>
               Technologies used:{' '}
               <strong>React, React Router, Node, MongoDB, GraphQL</strong>
-            </figcaption>
+            </PortfolioTech>
           </PortfolioItem>
         </PortfolioContainer>
       </div>
