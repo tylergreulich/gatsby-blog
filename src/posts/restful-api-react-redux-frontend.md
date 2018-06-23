@@ -75,9 +75,10 @@ Next, cd into the client folder and let's start installing some of the other add
 
 The axios module, if you're not familiar with it, is for making AJAX requests (of course you could use the Fetch API, this is just what I prefer).
 
-The other three packages are for connecting [Redux](/link-to-redux) to React, as Redux itself is not a package that was created just *for* React, but can be used with other frameworks as well. More specifically I'm talking about the `react-redux` package.
+The other three packages are for connecting [Redux](/link-to-redux) to React, as Redux itself is not a package that was created just _for_ React, but can be used with other frameworks as well. More specifically I'm talking about the `react-redux` package.
 
-Now `redux-thunk` is middleware (if know some language or framework like Node / Express, this is pretty much *exactly* the same as what middleware is used for the backend) that lets us handle async data coming from another API. In this case, it's pretty paramount.
+Now `redux-thunk` is middleware (if know some language or framework like Node / Express, this is pretty much _exactly_ the same as what middleware is used for the backend) that lets us handle async data coming from another API. In this case, it's pretty paramount.
 
 ## Setting up Redux with React
 
+(_Note: If you already have a way you prefer to set Redux up with React then by all means go with what you're most comfortable with. This is just how I like to set things up personally_)
