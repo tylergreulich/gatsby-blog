@@ -12,9 +12,14 @@ If you missed the last post and are wondering how the backend was set up, you ca
 
 It's just a relatively simple RESTful API built with Nodejs, Express, and MongoDB. So if you already know how to build APIs and are here for how the frontend works with React, or more specifically React and Redux, then look below.
 
+Speaking of which, if you're going to follow along, I highly recommend you get the Redux DevTools extension.
+
+[Redux DevTools for Chrome]('/')
+[Redux DevTools for FireFox]('/')
+
 (_This assumes you have knowledge of how React and Redux work and/or know how to do API calls with Axios or the Fetch API._)
 
-(\_Note: You can view the source code [I NEED TO CREATE A LINK]()
+(\_Note: You can view the source code [I NEED TO CREATE A LINK]())
 
 <style>
   a {
@@ -67,18 +72,183 @@ If you don't have create-react-app installed, open your terminal and run `npm i 
 
 Afterwards, navigate to the root directory of the project we worked on [last week](/), and run `create-react-app client`.
 
-This is just some boilerplate that comes from Facebook, the creators of React, and will create a quick setup to help get things going so you don't have to configure webpack and all the other tedious things that come with the process.
+This is just some boilerplate that comes from Facebook, the creators of React, and will create a quick setup to help get things going so you don't have to configure webpack and all the other monotonous things that come with the process.
 
-Next, cd into the client folder and let's start installing some of the other additional dependencies!
+Next, cd into the client folder and run `npm run eject`. This is so we can get complete control over our npm scripts and configuration files, and it also conveniently sets up Babel for us allowing us to write ES6.
 
-`npm i axios redux react-redux redux-thunk`
+Speaking of npm scripts, go inside of `package.json` and add the following line which will give us access to our API:
 
-The axios module, if you're not familiar with it, is for making AJAX requests (of course you could use the Fetch API, this is just what I prefer).
+`"proxy": "http://localhost:5000/"`
 
-The other three packages are for connecting [Redux](/link-to-redux) to React, as Redux itself is not a package that was created just _for_ React, but can be used with other frameworks as well. More specifically I'm talking about the `react-redux` package.
+Aside from that, lets install some dependencies!
+
+`npm i axios redux react-redux redux-thunk react-router-dom`
+
+Axios is for making AJAX requests (of course you could use the Fetch API, this is just what I prefer), and react-router-dom is to handle the navigation for our different routes that we'll be setting up.
+
+The other three packages are for connecting [Redux](/link-to-redux) to React, as Redux itself is not a package that was created just _for_ React, but can be used with other frameworks as well. More specifically I'm talking about the `redux` package. The `react-redux` package however is what allows us to connect Redux to React.
 
 Now `redux-thunk` is middleware (if know some language or framework like Node / Express, this is pretty much _exactly_ the same as what middleware is used for the backend) that lets us handle async data coming from another API. In this case, it's pretty paramount.
+
+---
 
 ## Setting up Redux with React
 
 (_Note: If you already have a way you prefer to set Redux up with React then by all means go with what you're most comfortable with. This is just how I like to set things up personally_)
+
+We'll start with setting up Redux in App.js by modifying the file to look like this:
+
+```
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './components/Home';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Route exact path="/" component={Home} />
+          </div>
+        </BrowserRouter>
+      </Provider>
+    );
+  }
+}
+
+export default App;
+```
+
+The `{ Provider }` import is what essentially passes our store and gives our components access to our new state, while everything else that has to do with the router imports is just for our routing.
+
+Don't worry about the `Home` and `store` files, we'll be creating those shortly.
+
+Inside of the `client` directory, make a new folder called `store`, put two additional folders `reducers`, and `actions` along with it, and create a file called `store.js`.
+
+Now let's set up each respective file so we can create our store to hold our decentralized state:
+
+In store.js
+
+```
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/rootReducer';
+
+const initialState = {};
+
+const middleware = [thunk];
+
+const store = createStore(
+  rootReducer,
+  initialState,
+  compose(
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
+
+export default store;
+```
+
+In `client/store/actions`, create two new files called `actionTypes.js`, and `movieActions.js`.
+
+`actionTypes.js`
+
+```
+export const GET_MOVIES = 'GET_MOVIES';
+export const ADD_MOVIE = 'ADD_MOVIE';
+```
+
+You can name these whatever you want; ideally though, you want them to be as descriptive as they can be with what your intentions are.
+
+In `movieActions.js`
+
+```
+import axios from 'axios';
+import { GET_MOVIES, ADD_MOVIE } from './actionTypes';
+
+export const getMovies = () => dispatch => {
+  axios
+    .get('/api/movies')
+    .then(res => dispatch({ type: GET_MOVIES, payload: res.data }))
+    .catch(err => console.log(err));
+};
+
+export const addMovie = movieData => dispatch => {
+  axios
+    .post('/api/movies/', movieData)
+    .then(res => dispatch(getMovies()))
+    .catch(err => console.log(err));
+};
+```
+
+If you're wondering what actionTypes are exactly, you can think of them as placeholder names you choose depending on what you're trying to do with requests to the API. GET_MOVIES is for getting movies, ADD_MOVIE is for adding a movie, etc.
+
+As far as the payload is concerned, that's just something you'll see commonly when reading blogs and tutorials about Redux. It's just another word for data in this case, where it returns or sends the data you're requesting / sending to the API.
+
+---
+
+Now that the actions are set up, navigate out of that directory and go into the reducers folder.
+
+movieReducer.js
+
+```
+import { GET_MOVIES, ADD_MOVIE } from '../actions/actionTypes';
+
+const initialState = {
+  movies: []
+};
+
+const movieReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_MOVIES:
+      return {
+        ...state,
+        movies: action.payload
+      }
+
+    case ADD_MOVIE:
+      return {
+        ...state,
+        movies: [action.payload, ...state.movies]
+      }
+
+    default:
+      return state;
+  }
+}
+
+export default movieReducer;
+```
+
+rootReducer.js
+
+```
+import { combineReducers } from 'redux';
+import movieReducer from './movieReducer';
+
+export default combineReducers({
+  movie: movieReducer
+});
+```
+
+The `movieReducer.js` file is responsible for specifying how the existing state changes in this file in responses sent to `store.js`. Just keep in mind that actions are used for describing _what happened_, but not how the state changes.
+
+Also, if you're unaware of functional programming concepts, the reason why you should use the spread `...` operator is so it doesn't mutate or manipulate the existing state. What that operator is doing in this case just retains a copy of the current state you want to make changes to without directly altering it.
+
+Whew! Now that Redux is finally set up with React, let's move on to the more visual aspect of things where you'll finally be able to see the data being pulled from the API and displayed on the screen.
+
+---
+
+## Calling the API and Outputting the Data
+
+Head inside of the same directory as App.js, and create a folder called `components`, and a file `Home.js` inside of it.
+
+Home.js
+
+```
+
+```

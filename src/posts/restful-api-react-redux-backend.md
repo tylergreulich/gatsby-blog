@@ -67,7 +67,17 @@ Starting off, go ahead and navigate to a directory of your choosing and run
 
 Once you've been through everything that follows with the command you can go ahead and install the dependencies that will be required for the set up
 
-`npm i express mongoose body-parser`
+`npm i express mongoose body-parser concurrently`
+
+Before we continue, inside of `package.json`, create these scripts:
+
+```
+"scripts": {
+  "client": "cd client && npm run start",
+  "server": "nodemon server.js",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+},
+```
 
 Now you can make a file called `server.js`, `index.js` or whatever you'd like to call it in the root directory, but those two file names are the defacto standard (_from what I've seen, at least_) when it comes to Nodejs.
 
