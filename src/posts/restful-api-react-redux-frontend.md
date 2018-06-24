@@ -180,7 +180,7 @@ export const getMovies = () => dispatch => {
 export const addMovie = movieData => dispatch => {
   axios
     .post('/api/movies/', movieData)
-    .then(res => dispatch(getMovies()))
+    .then(res => dispatch({ type: ADD_MOVIE, payload: res.data }))
     .catch(err => console.log(err));
 };
 ```
@@ -250,5 +250,203 @@ Head inside of the same directory as App.js, and create a folder called `compone
 Home.js
 
 ```
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getMovies } from '../store/actions/movieActions';
+import PropTypes from 'prop-types';
 
+class Home extends Component {
+  componentDidMount() {
+    this.props.getMovies();
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+      >
+        <h2>Home</h2>
+      </div>
+    );
+  }
+}
+
+Home.propTypes = {
+  getMovies: PropTypes.func.isRequired,
+  movie: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  movie: state.movie
+});
+
+export default connect(
+  mapStateToProps,
+  { getMovies }
+)(Home);
+```
+
+The connect function is a Higher Order Component (or HOC) that connects this component to our Redux store.
+
+If you're confused what the difference is between using our store as state as opposed to using regular state you might see defined in a component itself, basically the state we have access to in our store is our global state, or App level state. Whereas state you'd define in a component is just component level state.
+
+You can also mix and use both when the need arises.
+
+As far as `mapStateToProps` is concerned, it maps our state we created in the `reducers` folder to props in this component. So if we wanted to access the `movies` state in our store, we'd just have to do `this.props.movies.movie`.
+
+For a better visualization, navigate to the root level directory where we implemented our API and `npm run dev`
+
+Once the server and client spin up, hit ctrl+shift+i (or cmd+shift+i if you're on a Mac), and make your way to the Redux DevTools.
+
+You should be looking at something like this:
+
+[Redux DevTools Window](https://i.imgur.com/gl9B5i2.png)
+
+The reason why movies is just returning an empty object is because there's nothing in the database to return, so why don't we change that?
+
+---
+
+## Adding a Movie to the Database via the Client
+
+Now make some more changes to `Home.js` like so:
+
+```
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getMovies, addMovie } from '../store/actions/movieActions';
+import PropTypes from 'prop-types';
+
+class Home extends Component {
+  state = {
+    name: '',
+    description: '',
+    releaseDate: ''
+  };
+
+  componentDidMount() {
+    this.props.getMovies();
+  }
+
+  onSubmitHandler = event => {
+    event.preventDefault();
+
+    const { name, description, releaseDate } = this.state;
+
+    const movieData = {
+      name,
+      description,
+      releaseDate
+    };
+
+    this.props.addMovie(movieData);
+    this.setState({
+      name: '',
+      description: '',
+      releaseDate: ''
+    });
+  };
+
+  onChangeHandler = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  render() {
+    const { name, description, releaseDate } = this.state;
+    const { movies } = this.props.movie;
+
+    let movieList;
+
+    if (movies) {
+      movieList = movies.map(movie => (
+        <section
+          key={movie._id}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            justifyContent: 'space-evenly'
+          }}
+        >
+          <div>
+            <h4>Name</h4>
+            <span>{movie.name}</span>
+          </div>
+          <div>
+            <h4>Description</h4>
+            <span>{movie.description}</span>
+          </div>
+          <div>
+            <h4>Release Date</h4>
+            <span>{movie.releaseDate}</span>
+          </div>
+        </section>
+      ));
+    }
+
+    return (
+      <div>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          <div>
+            <h2>Home</h2>
+          </div>
+          {movieList}
+          <div style={{ marginTop: '25px' }}>
+            <h3 style={{ textAlign: 'center' }}>Movie Form</h3>
+            <form onSubmit={this.onSubmitHandler}>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={this.onChangeHandler}
+                placeholder="Name"
+              />
+              <input
+                type="text"
+                name="description"
+                value={description}
+                onChange={this.onChangeHandler}
+                placeholder="Description"
+              />
+              <input
+                type="text"
+                name="releaseDate"
+                value={releaseDate}
+                onChange={this.onChangeHandler}
+                placeholder="Release Date"
+              />
+              <button type="submit">Add a Movie</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+Home.propTypes = {
+  getMovies: PropTypes.func.isRequired,
+  addMovie: PropTypes.func.isRequired,
+  movie: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  movie: state.movie
+});
+
+export default connect(
+  mapStateToProps,
+  { getMovies, addMovie }
+)(Home);
 ```

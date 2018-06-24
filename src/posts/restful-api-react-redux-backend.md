@@ -129,7 +129,7 @@ const Movie = require('../models/movie.js');
 router.get('/', (req, res) => {
   Movie.find()
     .sort({ date: -1 })
-    .then(book => res.json(movie))
+    .then(movie => res.json(movie))
     .catch(err => res.json(err));
 
 
