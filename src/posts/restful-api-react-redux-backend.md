@@ -12,7 +12,7 @@ Well this post will show you just how to get started with that by setting things
 
 (_This assumes you have **some** knowledge of Node.js, MongoDB, and definitely assumes you know at least the fundamentals of how React and Redux work for when we move on to the frontend._)
 
-(\_Note: You can view the source code [HERE](https://github.com/tylergreulich/restful-api-react--blog)
+(_Note: You can view the source code [HERE](https://github.com/tylergreulich/restful-api-react--blog)_)
 
 <style>
   a {

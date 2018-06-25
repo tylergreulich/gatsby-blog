@@ -9,6 +9,10 @@ const PortfolioHeading = styled.h2`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+
+  @media (max-width: 640px) {
+    margin-top: 8rem;
+  }
 `
 
 const PortfolioContainer = styled.section`
@@ -24,6 +28,14 @@ const PortfolioItem = styled.figure`
 
 const PortfolioTech = styled.figcaption`
   padding: 0 3rem;
+
+  @media (max-width: 787px) {
+    margin: 0 -1rem;
+  }
+
+  @media (max-width: 678px) {
+    margin: 0 -3rem;
+  }
 `
 
 export default class About extends Component {
@@ -57,7 +69,9 @@ export default class About extends Component {
             </PortfolioTech>
           </PortfolioItem>
           <PortfolioItem>
-            <span>Lightweight Movie Database</span>
+            <span style={{ margin: '0 -1rem' }}>
+              Lightweight Movie Database
+            </span>
             <a
               target="_blank"
               href="https://admiring-golick-7882c0.netlify.com/#/"
@@ -74,7 +88,9 @@ export default class About extends Component {
 
             <PortfolioTech>
               Technologies used:{' '}
-              <strong>React, React Router, Node, MongoDB, GraphQL</strong>
+              <strong>
+                React, React Router, Node, Express, MongoDB, GraphQL
+              </strong>
             </PortfolioTech>
           </PortfolioItem>
         </PortfolioContainer>

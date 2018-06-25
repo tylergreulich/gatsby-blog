@@ -74,10 +74,7 @@ class Header extends Component {
           <h1 style={{ margin: 0 }}>
             <StyledHeader
               to="/"
-              style={{
-                color: 'white',
-                textDecoration: 'none',
-              }}
+              style={{ color: 'white', textDecoration: 'none' }}
             >
               {siteTitle}
             </StyledHeader>
@@ -103,9 +100,7 @@ class Header extends Component {
             height: '100%',
             objectFit: 'unset',
           }}
-          imgStyle={{
-            objectFit: 'unset',
-          }}
+          imgStyle={{ objectFit: 'unset' }}
         />
       </HeaderWrapper>
     )

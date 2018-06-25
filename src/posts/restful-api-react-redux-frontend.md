@@ -8,18 +8,21 @@ If you read the previous post, you should have a good idea of what this one will
 
 <!-- end -->
 
-If you missed the last post and are wondering how the backend was set up, you can look [here](/).
+If you missed the last post and are wondering how the backend was set up, you can look [here](https://github.tylergreulich.io/posts/restful-api-react-redux-backend/).
 
 It's just a relatively simple RESTful API built with Nodejs, Express, and MongoDB. So if you already know how to build APIs and are here for how the frontend works with React, or more specifically React and Redux, then look below.
 
 Speaking of which, if you're going to follow along, I highly recommend you get the Redux DevTools extension.
 
-[Redux DevTools for Chrome]('/')
-[Redux DevTools for FireFox]('/')
+[Redux DevTools for Chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
+
+[Redux DevTools for FireFox](https://addons.mozilla.org/en-US/firefox/addon/remotedev/)
 
 (_This assumes you have knowledge of how React and Redux work and/or know how to do API calls with Axios or the Fetch API._)
 
-(\_Note: You can view the source code [I NEED TO CREATE A LINK]())
+(_Note: You can view the source code [here](https://github.com/tylergreulich/restful-api-react--blog)_)
+
+---
 
 <style>
   a {
@@ -68,9 +71,11 @@ code {
 }
 </style>
 
+## Getting Started
+
 If you don't have create-react-app installed, open your terminal and run `npm i -g create-react-app`.
 
-Afterwards, navigate to the root directory of the project we worked on [last week](/), and run `create-react-app client`.
+Afterwards, navigate to the root directory of the project we worked on [last week](https://github.tylergreulich.io/posts/restful-api-react-redux-backend/), and run `create-react-app client`.
 
 This is just some boilerplate that comes from Facebook, the creators of React, and will create a quick setup to help get things going so you don't have to configure webpack and all the other monotonous things that come with the process.
 
@@ -86,7 +91,7 @@ Aside from that, lets install some dependencies!
 
 Axios is for making AJAX requests (of course you could use the Fetch API, this is just what I prefer), and react-router-dom is to handle the navigation for our different routes that we'll be setting up.
 
-The other three packages are for connecting [Redux](/link-to-redux) to React, as Redux itself is not a package that was created just _for_ React, but can be used with other frameworks as well. More specifically I'm talking about the `redux` package. The `react-redux` package however is what allows us to connect Redux to React.
+The other three packages are for connecting [Redux](https://redux.js.org/) to React, as Redux itself is not a package that was created just _for_ React, but can be used with other frameworks as well. More specifically I'm talking about the `redux` package. The `react-redux` package however is what allows us to connect Redux to React.
 
 Now `redux-thunk` is middleware (if know some language or framework like Node / Express, this is pretty much _exactly_ the same as what middleware is used for the backend) that lets us handle async data coming from another API. In this case, it's pretty paramount.
 
@@ -305,7 +310,7 @@ Once the server and client spin up, hit ctrl+shift+i (or cmd+shift+i if you're o
 
 You should be looking at something like this:
 
-[Redux DevTools Window](https://i.imgur.com/gl9B5i2.png)
+![Redux DevTools Window](https://i.imgur.com/gl9B5i2.png)
 
 The reason why movies is just returning an empty object is because there's nothing in the database to return, so why don't we change that?
 
@@ -351,9 +356,9 @@ class Home extends Component {
     });
   };
 
-  onChangeHandler = event => {
+  onChangeHandler = event =>
     this.setState({ [event.target.name]: event.target.value });
-  };
+
 
   render() {
     const { name, description, releaseDate } = this.state;
@@ -367,7 +372,6 @@ class Home extends Component {
           key={movie._id}
           style={{
             display: 'flex',
-            justifyContent: 'center',
             width: '100%',
             justifyContent: 'space-evenly'
           }}
@@ -450,3 +454,27 @@ export default connect(
   { getMovies, addMovie }
 )(Home);
 ```
+
+What's going on here is we're importing the `getMovies` and `addMovie` actions, and then dispatching those actions to our props. Then, in `componentDidMount()`, we're calling the `getMovies` action to get the movies from the database. Everything else is just for adding a movie to the backend from the client.
+
+After adding a movie, you should be able to see it update your global state via the Redux DevTools
+
+![Redux Store](https://i.imgur.com/02k57aS.png)
+
+And on the client
+
+![LOTR Client](https://i.imgur.com/98qrEl3.png)
+
+Now granted, this isn't the _most_ visibly appealing thing in the world, but this wasn't a tutorial on styling with CSS.
+
+---
+
+That's about it though for this post, if you wanted to read more about Redux you can go ahead and take a look at its documentation [here](https://redux.js.org/).
+
+As for a recap, we:
+
+* Installed Create-React-App, ran the `npm run eject` script, and then installed the additional dependencies to set up Redux with React.
+
+* Created our Redux store and added actions and the reducers that go along with them, including using axios in our actions to make API calls to our backend.
+
+* Pulled the data from our API and displayed it on the screen, as well as adding a form to add additional data via a POST request.

@@ -14,6 +14,13 @@ const writing = ({ data }) => (
     <section className="writing">
       <h2 className="writing__headline">recently written</h2>
       <section className="writing__container">
+        <StyledRedirect to="/posts/restful-api-react-redux-frontend/">
+          <figure>
+            <h2>
+              Connecting a RESTful API with React and Redux - The Frontend
+            </h2>
+          </figure>
+        </StyledRedirect>
         <StyledRedirect to="/posts/restful-api-react-redux-backend/">
           <figure>
             <h2>Connecting a RESTful API with React and Redux - The Backend</h2>
@@ -27,11 +34,6 @@ const writing = ({ data }) => (
         <StyledRedirect to="/posts/creating-blog-gatsbyjs-part-two/">
           <figure>
             <h2>Creating a Blog with GatsbyJS - Part Two</h2>
-          </figure>
-        </StyledRedirect>
-        <StyledRedirect to="/posts/creating-blog-gatsbyjs-part-one/">
-          <figure>
-            <h2>Creating a Blog with GatsbyJS - Part One</h2>
           </figure>
         </StyledRedirect>
       </section>
