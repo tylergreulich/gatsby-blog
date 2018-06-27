@@ -77,7 +77,7 @@ If you don't have create-react-app installed, open your terminal and run `npm i 
 
 Afterwards, navigate to the root directory of the project we worked on [last week](https://github.tylergreulich.io/posts/restful-api-react-redux-backend/), and run `create-react-app client`.
 
-This is just some boilerplate that comes from Facebook, the creators of React, and will create a quick setup to help get things going so you don't have to configure webpack and all the other monotonous things that come with the process.
+This is just some boilerplate that comes from Facebook, the creators of React, and will create a quick setup to help get things going so you don't have to configure webpack and all the other things that come with the process.
 
 Next, cd into the client folder and run `npm run eject`. This is so we can get complete control over our npm scripts and configuration files, and it also conveniently sets up Babel for us allowing us to write ES6.
 
